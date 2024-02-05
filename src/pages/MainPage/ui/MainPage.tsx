@@ -48,10 +48,25 @@ const MainPage = memo((props: MainPageProps) => {
         setVehiclesClass([...new Set(vehiclesClasses)])
 
     }, [data]);
-    const handleSort = (sortVal: string) => {
-        console.log("test")
-        if (sortVal !== "Select country") {
+    const handleSortNation = (sortVal: string) => {
+        if (sortVal !== "Select") {
             const sort = data && data.vehicles.filter((item: any) => item.nation.name === sortVal);
+            setDataSort(sort)
+        } else {
+            setDataSort(data && data.vehicles)
+        }
+    };
+    const handleSortLevels = (sortVal: string) => {
+        if (sortVal !== "Select") {
+            const sort = data && data.vehicles.filter((item: any) => item.level === sortVal);
+            setDataSort(sort)
+        } else {
+            setDataSort(data && data.vehicles)
+        }
+    };
+    const handleSortClasses = (sortVal: string) => {
+        if (sortVal !== "Select") {
+            const sort = data && data.vehicles.filter((item: any) => item.type.title === sortVal);
             setDataSort(sort)
         } else {
             setDataSort(data && data.vehicles)
@@ -59,7 +74,9 @@ const MainPage = memo((props: MainPageProps) => {
     };
     return (
         <PageWrapper>
-            <FilterShip dataSelect={nation} onChange={(event)=>handleSort(event.target.value)}/>
+            <FilterShip dataSelect={nation} onChange={(event)=>handleSortNation(event.target.value)}/>
+            <FilterShip dataSelect={uniqLevel} onChange={(event)=>handleSortLevels(event.target.value)}/>
+            <FilterShip dataSelect={vehiclesClass} onChange={(event)=>handleSortClasses(event.target.value)}/>
             <CardShip/>
         </PageWrapper>
     );

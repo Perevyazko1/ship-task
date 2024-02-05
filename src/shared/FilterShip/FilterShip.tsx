@@ -25,7 +25,7 @@ export const FilterShip = memo((props: FilterShipProps) => {
                 value={dataSelect}
                 onChange={onChange}
                 className="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option>Select country</option>
+                <option>Select</option>
                 {dataSelect && dataSelect.map((item: string, index: number) => (
                     <option key={index}>{item}</option>
                 ))}
