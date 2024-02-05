@@ -1,0 +1,15 @@
+.MainPage {
+}
+
+.carusel {
+    margin: 0 auto;
+    width: 600px;
+}
+
+@media screen and (max-width: 768px) {
+    .carusel {
+        margin: 0 auto;
+        width: 300px;
+    }
+
+}
