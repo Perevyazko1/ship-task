@@ -3,6 +3,8 @@ import {gql, useQuery} from '@apollo/client';
 import {PageWrapper} from "shared/ui/PageWrapper/PageWrapper";
 import {DataContent, useDataContext} from "../../../features/DataContext";
 import {GET_VEHICLES} from "../../../shared/api/GET_VEHICLES";
+import {CardShip} from "../../../widgets/CardShip/CardShip";
+import {FilterShip} from "../../../shared/FilterShip/FilterShip";
 
 interface MainPageProps {
     className?: string
@@ -44,10 +46,10 @@ const MainPage = memo((props: MainPageProps) => {
 
         const vehiclesClasses = data && data.vehicles.map((vehicle: any) => vehicle.type.title)
         setVehiclesClass([...new Set(vehiclesClasses)])
-        console.log(uniqLevel, nation, vehiclesClass)
 
     }, [data]);
     const handleSort = (sortVal: string) => {
+        console.log("test")
         if (sortVal !== "Select country") {
             const sort = data && data.vehicles.filter((item: any) => item.nation.name === sortVal);
             setDataSort(sort)
@@ -57,15 +59,8 @@ const MainPage = memo((props: MainPageProps) => {
     };
     return (
         <PageWrapper>
-            <select
-                value={nation}
-                onChange={(event) => handleSort(event.target.value)}
-                className="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option>Select country</option>
-                {nation && nation.map((item: string, index: number) => (
-                    <option key={index}>{item}</option>
-                ))}
-            </select>
+            <FilterShip dataSelect={nation} onChange={(event)=>handleSort(event.target.value)}/>
+            <CardShip/>
         </PageWrapper>
     );
 });

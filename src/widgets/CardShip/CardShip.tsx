@@ -34,7 +34,7 @@ export const CardShip = memo((props: CardShipProps) => {
         ...otherProps
     } = props
     useEffect(() => {
-        if (data.vehicles) {
+        if (data?.vehicles) {
             setDataSort(data.vehicles)
         }
 
