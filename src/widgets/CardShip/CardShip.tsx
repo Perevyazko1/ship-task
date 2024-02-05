@@ -3,6 +3,7 @@ import {classNames, Mods} from "shared/lib/classNames/classNames";
 import {gql, useQuery} from "@apollo/client";
 import {GET_VEHICLES} from "../../shared/api/GET_VEHICLES";
 import {useDataContext} from "../../features/DataContext";
+import cls from "./CardShip.module.scss"
 
 interface CardShipProps {
     className?: string
@@ -36,6 +37,7 @@ export const CardShip = memo((props: CardShipProps) => {
     useEffect(() => {
         if (data?.vehicles) {
             setDataSort(data.vehicles)
+            console.log(data.vehicles)
         }
 
     }, [data]);
@@ -43,18 +45,18 @@ export const CardShip = memo((props: CardShipProps) => {
 
     return (
         <div
-            className={classNames('', {}, [className])}
+            className={classNames(cls.CardShip, {}, [className])}
             {...otherProps}
         >
-            {dataSort && dataSort.map((vehicle: Vehicle) => (
-                    <div>
-                        <div>{vehicle.title}</div>
+            {dataSort && dataSort.map((vehicle: Vehicle, index:number) => (
+                    <div className={cls.cardWrapper} key={index}>
+                        <div className={cls.title}>{vehicle.title}</div>
+                        <img className={cls.flag} src={`https:${vehicle.nation.icons.large}`}/>
+                        <img className={cls.ship} src={`https:${vehicle.icons.medium}`}/>
                         <div>{vehicle.type.name}</div>
                         <div>{`Нация ${vehicle.nation.name}`}</div>
                         <div>{vehicle.level}</div>
                         <div>{vehicle.description}</div>
-                        <img src={`https:${vehicle.icons.medium}`}/>
-                        <img src={`https:${vehicle.nation.icons.large}`}/>
 
                     </div>
                 )
