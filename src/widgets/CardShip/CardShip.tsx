@@ -53,10 +53,10 @@ export const CardShip = memo((props: CardShipProps) => {
                         <div className={cls.title}>{vehicle.title}</div>
                         <img className={cls.flag} src={`https:${vehicle.nation.icons.large}`}/>
                         <img className={cls.ship} src={`https:${vehicle.icons.medium}`}/>
-                        <div>{vehicle.type.name}</div>
-                        <div>{`Нация ${vehicle.nation.name}`}</div>
-                        <div>{vehicle.level}</div>
-                        <div>{vehicle.description}</div>
+                        <div className={cls.type}>{vehicle.type.name}</div>
+                        <div className={cls.nation}>{vehicle.nation.name}</div>
+                        <div className={cls.level}>{vehicle.level}</div>
+                        <div className={cls.description}>{vehicle.description}</div>
 
                     </div>
                 )

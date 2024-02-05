@@ -1,11 +1,16 @@
 .CardShip {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
-.cardWrapper{
+
+.cardWrapper {
     position: relative;
-    width: 300px;
+    width: 440px;
     margin: 30px;
+    border: 3px solid white;
+    border-radius: 10px;
+    padding: 10px;
 
 }
 
@@ -27,6 +32,7 @@
         opacity: 1;
     }
 }
+
 .title {
     font-family: var(--font-title);
     font-size: 36px;
@@ -37,6 +43,54 @@
     text-transform: uppercase;
     position: absolute;
     top: 30px;
-    left: 170px;
+    left: 80px;
+
+}
+
+.description {
+    font-family: var(--font-description);
+    color: #b2b5ba;
+    margin-top: 60px;
+}
+
+.type {
+    font-family: var(--font-title);
+    font-size: 36px;
+    margin-top: 0;
+    line-height: 43px;
+    margin-bottom: 25px;
+    color: #b2b5ba;
+    text-transform: uppercase;
+    position: absolute;
+    top: 270px;
+    left: 180px;
+
+}
+
+.nation {
+    font-family: var(--font-title);
+    font-size: 36px;
+    margin-top: 0;
+    line-height: 43px;
+    margin-bottom: 25px;
+    color: #b2b5ba;
+    text-transform: uppercase;
+    position: absolute;
+    top: 80px;
+    left: 80px;
+
+}
+
+.level {
+    font-family: var(--font-title);
+    font-size: 36px;
+    margin-top: 0;
+    line-height: 43px;
+    margin-bottom: 25px;
+    color: #b2b5ba;
+    text-transform: uppercase;
+    position: absolute;
+    top: 270px;
+    left: 80px;
 
 }
