@@ -7,16 +7,13 @@ import {CardShip} from "widgets/CardShip/CardShip";
 import {FilterShip} from "shared/FilterShip/FilterShip";
 import cls from "./MainPage.module.scss"
 import {Vehicle} from "entity/Vehicle";
+import {Loader} from "../../../shared/ui/Loader/Loader";
 
 interface MainPageProps {
     className?: string
     children?: ReactNode
 }
 
-interface DataSort {
-    vehicles: string[]
-
-}
 
 
 const MainPage = memo((props: MainPageProps) => {
@@ -55,7 +52,7 @@ const MainPage = memo((props: MainPageProps) => {
     }, [data]);
     const handleSortNation = (sortVal: string) => {
         if (sortVal !== "Выберите Нацию") {
-            const sort = data && data.vehicles.filter((item: Vehicle) => item.nation.name === sortVal);
+            const sort = dataSort && dataSort.filter((item: Vehicle) => item.nation.name === sortVal);
             setDataSort(sort)
         } else {
             setDataSort(data && data.vehicles)
@@ -63,7 +60,7 @@ const MainPage = memo((props: MainPageProps) => {
     };
     const handleSortLevels = (sortVal: string) => {
         if (sortVal !== "Выберите уровень") {
-            const sort = data && data.vehicles.filter((item: Vehicle) => item.level === sortVal);
+            const sort = dataSort && dataSort.filter((item: Vehicle) => item.level === parseInt(sortVal));
             setDataSort(sort)
         } else {
             setDataSort(data && data.vehicles)
@@ -71,7 +68,7 @@ const MainPage = memo((props: MainPageProps) => {
     };
     const handleSortClasses = (sortVal: string) => {
         if (sortVal !== "Выберите Класс") {
-            const sort = data && data.vehicles.filter((item: Vehicle) => item.type.title === sortVal);
+            const sort = dataSort && dataSort.filter((item: Vehicle) => item.type.title === sortVal);
             setDataSort(sort)
         } else {
             setDataSort(data && data.vehicles)
@@ -79,16 +76,23 @@ const MainPage = memo((props: MainPageProps) => {
     };
     return (
         <PageWrapper>
-            <div className={cls.filterWrapper}>
-                <FilterShip valueActive={activeNationFilter} dataSelect={nation}
-                            onChange={(event) => handleSortNation(event.target.value)}/>
-                <FilterShip valueActive={activeLevelFilter} dataSelect={uniqLevel}
-                            onChange={(event) => handleSortLevels(event.target.value)}/>
-                <FilterShip valueActive={activeClassFilter} dataSelect={vehiclesClass}
-                            onChange={(event) => handleSortClasses(event.target.value)}/>
 
+
+            {loading? <Loader/>:
+            <div className={cls.MainPage}>
+                <div className={cls.filterWrapper}>
+                    <FilterShip valueActive={activeNationFilter} dataSelect={nation}
+                                onChange={(event) => handleSortNation(event.target.value)}/>
+                    <FilterShip valueActive={activeLevelFilter} dataSelect={uniqLevel}
+                                onChange={(event) => handleSortLevels(event.target.value)}/>
+                    <FilterShip valueActive={activeClassFilter} dataSelect={vehiclesClass}
+                                onChange={(event) => handleSortClasses(event.target.value)}/>
+
+                </div>
+                <CardShip/>
             </div>
-            <CardShip/>
+
+            }
         </PageWrapper>
     );
 });

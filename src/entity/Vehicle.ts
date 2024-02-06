@@ -1,6 +1,6 @@
 export interface Vehicle {
     title: string[]
-    level: string
+    level: number
     type: {
         name: string
         title:string

@@ -37,7 +37,7 @@ export const CardShip = memo((props: CardShipProps) => {
             className={classNames(cls.CardShip, {}, [className])}
             {...otherProps}
         >
-            {dataSort && dataSort.slice(0,20).map((vehicle: Vehicle, index:number) => (
+            {dataSort && dataSort.map((vehicle: Vehicle, index:number) => (
                     <div className={cls.cardWrapper} key={index}>
                         <div className={cls.title}>{vehicle.title}</div>
                         <img className={cls.flag} src={`https:${vehicle.nation.icons.large}`}/>
