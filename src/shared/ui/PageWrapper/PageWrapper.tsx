@@ -1,6 +1,6 @@
 import React, {memo, ReactNode} from 'react';
 import cls from "./PageWrapper.module.scss"
-import {classNames, Mods} from "../../lib/classNames/classNames";
+import {classNames, Mods} from "shared/lib/classNames/classNames";
 
 interface PageWrapperProps {
     className?: string
@@ -15,9 +15,7 @@ export const PageWrapper = memo((props: PageWrapperProps) => {
         ...otherProps
     } = props
 
-    const mods: Mods = {
-
-    };
+    const mods: Mods = {};
 
     return (
         <div

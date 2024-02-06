@@ -1,10 +1,10 @@
-import {memo, ReactNode, useEffect, useState} from 'react';
-import {classNames, Mods} from "shared/lib/classNames/classNames";
-import {gql, useQuery} from "@apollo/client";
-import {GET_VEHICLES} from "../../shared/api/GET_VEHICLES";
-import {useDataContext} from "../../features/DataContext";
+import {memo, ReactNode, useEffect} from 'react';
+import {classNames} from "shared/lib/classNames/classNames";
+import {useQuery} from "@apollo/client";
+import {GET_VEHICLES} from "shared/api/GET_VEHICLES";
+import {useDataContext} from "features/DataContext";
 import cls from "./CardShip.module.scss"
-import {Vehicle} from "../../entity/Vehicle";
+import {Vehicle} from "entity/Vehicle";
 
 interface CardShipProps {
     className?: string

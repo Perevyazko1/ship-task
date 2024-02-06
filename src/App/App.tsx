@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {MainPage} from "../pages/MainPage";
-import {ApolloClient, ApolloProvider, InMemoryCache, useQuery} from "@apollo/client";
-import {GET_VEHICLES} from "../shared/api/GET_VEHICLES";
-import {DataContent} from "../features/DataContext";
+import {MainPage} from "pages/MainPage";
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {DataContent} from "features/DataContext";
 
 
 const client = new ApolloClient({
