@@ -4,23 +4,13 @@ import {gql, useQuery} from "@apollo/client";
 import {GET_VEHICLES} from "../../shared/api/GET_VEHICLES";
 import {useDataContext} from "../../features/DataContext";
 import cls from "./CardShip.module.scss"
+import {Vehicle} from "../../entity/Vehicle";
 
 interface CardShipProps {
     className?: string
     children?: ReactNode
 }
 
-interface Vehicle {
-    title: string[]
-    level: string[]
-    type: { name: string }
-    nation: {
-        name: string,
-        icons: { large: string }
-    }
-    description: string[]
-    icons: { medium: string }
-}
 
 
 export const CardShip = memo((props: CardShipProps) => {
@@ -37,7 +27,6 @@ export const CardShip = memo((props: CardShipProps) => {
     useEffect(() => {
         if (data?.vehicles) {
             setDataSort(data.vehicles)
-            console.log(data.vehicles)
         }
 
     }, [data]);
@@ -48,7 +37,7 @@ export const CardShip = memo((props: CardShipProps) => {
             className={classNames(cls.CardShip, {}, [className])}
             {...otherProps}
         >
-            {dataSort && dataSort.map((vehicle: Vehicle, index:number) => (
+            {dataSort && dataSort.slice(0,20).map((vehicle: Vehicle, index:number) => (
                     <div className={cls.cardWrapper} key={index}>
                         <div className={cls.title}>{vehicle.title}</div>
                         <img className={cls.flag} src={`https:${vehicle.nation.icons.large}`}/>
@@ -57,7 +46,6 @@ export const CardShip = memo((props: CardShipProps) => {
                         <div className={cls.nation}>{vehicle.nation.name}</div>
                         <div className={cls.level}>{vehicle.level}</div>
                         <div className={cls.description}>{vehicle.description}</div>
-
                     </div>
                 )
             )}

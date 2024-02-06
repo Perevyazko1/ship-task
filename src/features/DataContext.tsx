@@ -1,9 +1,11 @@
-import { createContext, useContext } from "react"
+import {createContext, useContext} from "react"
+
 export type DataContent = {
-  dataSort: any
-  setDataSort:(c: any) => void
+  dataSort?: []
+  setDataSort:(c: []) => void
 }
 export const DataContent = createContext<DataContent>({
+
 dataSort: [], // set a default value
 setDataSort: () => {},
 })
