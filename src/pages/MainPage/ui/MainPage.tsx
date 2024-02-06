@@ -15,7 +15,6 @@ interface MainPageProps {
 }
 
 
-
 const MainPage = memo((props: MainPageProps) => {
     const {
         className,
@@ -51,46 +50,63 @@ const MainPage = memo((props: MainPageProps) => {
 
     }, [data]);
     const handleSortNation = (sortVal: string) => {
-        if (sortVal !== "Выберите Нацию") {
-            const sort = dataSort && dataSort.filter((item: Vehicle) => item.nation.name === sortVal);
-            setDataSort(sort)
+        setActiveNationFilter(sortVal)
+        const sort = dataSort && dataSort.filter((item: Vehicle) => item.nation.name === sortVal);
+
+        if (sort.length === 0) {
+            const sortDataNation = data && data.vehicles.filter((item: Vehicle) => item.nation.name === sortVal);
+            const sortDataNationLevel = sortDataNation.filter((item: Vehicle) => item.level === parseInt(activeLevelFilter))
+            const sortDataNationLevelClass = sortDataNationLevel.filter((item: Vehicle) => item.type.title === activeClassFilter);
+            setDataSort(sortDataNationLevelClass)
         } else {
-            setDataSort(data && data.vehicles)
+            setDataSort(sort)
         }
     };
+
+
     const handleSortLevels = (sortVal: string) => {
-        if (sortVal !== "Выберите уровень") {
-            const sort = dataSort && dataSort.filter((item: Vehicle) => item.level === parseInt(sortVal));
-            setDataSort(sort)
+        setActiveLevelFilter(sortVal)
+        const sort = dataSort && dataSort.filter((item: Vehicle) => item.level === parseInt(sortVal));
+        if (sort.length === 0) {
+            const sortDataLevels = data && data.vehicles.filter((item: Vehicle) => item.level === parseInt(sortVal));
+            const sortDataLevelsNation = sortDataLevels.filter((item: Vehicle) => item.nation.name === activeNationFilter)
+            const sortDataLevelsNationClass = sortDataLevelsNation.filter((item: Vehicle) => item.type.title === activeClassFilter);
+            setDataSort(sortDataLevelsNationClass)
         } else {
-            setDataSort(data && data.vehicles)
+            setDataSort(sort)
         }
     };
+
+
     const handleSortClasses = (sortVal: string) => {
-        if (sortVal !== "Выберите Класс") {
-            const sort = dataSort && dataSort.filter((item: Vehicle) => item.type.title === sortVal);
-            setDataSort(sort)
+        setActiveClassFilter(sortVal)
+        const sort = dataSort && dataSort.filter((item: Vehicle) => item.type.title === sortVal);
+        if (sort.length === 0) {
+            const sortDataClass = data && data.vehicles.filter((item: Vehicle) => item.type.title === sortVal)
+            const sortDataClassNation = sortDataClass.filter((item: Vehicle) => item.nation.name === activeNationFilter)
+            const sortDataClassNationLevel = sortDataClassNation.filter((item: Vehicle) => item.level === parseInt(activeLevelFilter));
+            setDataSort(sortDataClassNationLevel)
         } else {
-            setDataSort(data && data.vehicles)
+            setDataSort(sort)
         }
     };
     return (
         <PageWrapper>
 
 
-            {loading? <Loader/>:
-            <div className={cls.MainPage}>
-                <div className={cls.filterWrapper}>
-                    <FilterShip valueActive={activeNationFilter} dataSelect={nation}
-                                onChange={(event) => handleSortNation(event.target.value)}/>
-                    <FilterShip valueActive={activeLevelFilter} dataSelect={uniqLevel}
-                                onChange={(event) => handleSortLevels(event.target.value)}/>
-                    <FilterShip valueActive={activeClassFilter} dataSelect={vehiclesClass}
-                                onChange={(event) => handleSortClasses(event.target.value)}/>
+            {loading ? <Loader/> :
+                <div className={cls.MainPage}>
+                    <div className={cls.filterWrapper}>
+                        <FilterShip defaultValue={"Выберите Нацию"} valueActive={activeNationFilter} dataSelect={nation}
+                                    onChange={(event) => handleSortNation(event.target.value)}/>
+                        <FilterShip defaultValue={"Выберите уровень"} valueActive={activeLevelFilter} dataSelect={uniqLevel}
+                                    onChange={(event) => handleSortLevels(event.target.value)}/>
+                        <FilterShip defaultValue={"Выберите класс"} valueActive={activeClassFilter} dataSelect={vehiclesClass}
+                                    onChange={(event) => handleSortClasses(event.target.value)}/>
 
+                    </div>
+                    <CardShip/>
                 </div>
-                <CardShip/>
-            </div>
 
             }
         </PageWrapper>

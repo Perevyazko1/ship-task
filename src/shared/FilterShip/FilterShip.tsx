@@ -7,6 +7,7 @@ interface FilterShipProps extends SelectHTMLAttributes<HTMLSelectElement> {
     dataSelect: string[]
     valueActive?: string
     onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+    defaultValue: string
 }
 
 
@@ -17,6 +18,7 @@ export const FilterShip = memo((props: FilterShipProps) => {
         dataSelect,
         onChange,
         valueActive,
+        defaultValue,
         ...otherProps
     } = props
 
@@ -24,10 +26,10 @@ export const FilterShip = memo((props: FilterShipProps) => {
 
     return (
         <select
-            defaultValue={valueActive}
+            value={valueActive}
             onChange={onChange}
             className="form-select form-select-sm mb-2 mx-auto w-25" aria-label="Default select example">
-            <option>{valueActive}</option>
+            <option>{defaultValue}</option>
             {dataSelect && dataSelect.map((item: string, index: number) => (
                 <option key={index}>{item}</option>
             ))}
