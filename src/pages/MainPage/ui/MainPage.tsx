@@ -26,12 +26,11 @@ const MainPage = memo((props: MainPageProps) => {
     const [uniqLevel, setUniqLevel] = useState<any>()
     const [nation, setNation] = useState<any>()
     const [vehiclesClass, setVehiclesClass] = useState<any>()
-    const [activeLevelFilter, setActiveLevelFilter] = useState("Выберите уровень")
-    const [activeNationFilter, setActiveNationFilter] = useState("Выберите нацию")
-    const [activeClassFilter, setActiveClassFilter] = useState("Выберите класс")
+    const [activeLevelFilter, setActiveLevelFilter] = useState("")
+    const [activeNationFilter, setActiveNationFilter] = useState("")
+    const [activeClassFilter, setActiveClassFilter] = useState("")
     const {loading, error, data} = useQuery(GET_VEHICLES);
-    const {setDataSort} = useDataContext()
-
+    const {dataSort, setDataSort} = useDataContext()
     useEffect(() => {
         if (data?.vehicles) {
             setDataSort(data.vehicles)
@@ -41,34 +40,40 @@ const MainPage = memo((props: MainPageProps) => {
 
     useEffect(() => {
         const nations = data && data.vehicles.map((vehicle: Vehicle) => vehicle.nation.name)
-        setNation([...new Set(nations)]);
+        setNation([...new Set(nations)])
 
         const levels = data && data.vehicles.map((vehicle: Vehicle) => vehicle.level)
-        const sortedLevels = levels && levels.sort((a: number, b: number) => a - b);
-        setUniqLevel([...new Set(sortedLevels)])
+        setUniqLevel([...new Set(levels)])
 
         const vehiclesClasses = data && data.vehicles.map((vehicle: Vehicle) => vehicle.type.name)
         setVehiclesClass([...new Set(vehiclesClasses)])
 
     }, [data]);
 
-
     useEffect(() => {
-        if (data?.vehicles) {
+        if(data?.vehicles) {
+
+
             let sortData = data.vehicles
-            if (activeLevelFilter !== "Выберите уровень") {
-                sortData = sortData.filter((item:Vehicle) => item.level === parseInt(activeLevelFilter));  // Фильтрация по уровню
+
+
+            if (activeLevelFilter !== "") {
+                const sort = sortData && sortData.filter((item: Vehicle) => item.level === parseInt(activeLevelFilter))
+                sortData = sort
             }
-            if (activeClassFilter !== "Выберите класс") {
-                sortData = sortData.filter((item:Vehicle) => item.type.name === activeClassFilter);  // Фильтрация по классу
+            if (activeClassFilter !== "") {
+                const sort = sortData && sortData.filter((item: Vehicle) => item.type.name === activeClassFilter)
+                sortData = sort
             }
-            if (activeNationFilter !== "Выберите нацию") {
-                sortData = sortData.filter((item:Vehicle) => item.nation.name === activeNationFilter);  // Фильтрация по нации
+            if (activeNationFilter !== "") {
+                const sort = sortData && sortData.filter((item: Vehicle) => item.nation.name === activeNationFilter)
+                sortData = sort
             }
             setDataSort(sortData)
         }
 
     }, [activeLevelFilter, activeClassFilter, activeNationFilter]);
+
 
 
     return (
