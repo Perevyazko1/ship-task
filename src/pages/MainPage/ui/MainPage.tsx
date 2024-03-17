@@ -47,7 +47,6 @@ const MainPage = memo((props: MainPageProps) => {
 
         const vehiclesClasses = data && data.vehicles.map((vehicle: Vehicle) => vehicle.type.name)
         setVehiclesClass([...new Set(vehiclesClasses)])
-        console.log(data)
 
     }, [data]);
 

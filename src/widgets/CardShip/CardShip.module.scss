@@ -1,13 +1,25 @@
 .CardShip {
-    display: flex;
-    flex-wrap: wrap;
+    //display: flex;
+    //flex-wrap: wrap;
+    //display: grid;
+    //grid-template-columns: 1fr 1fr ;
     justify-content: center;
+}
+.top{
+    position: relative;
+    width: 440px;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 10px;
+}
+.bottom{
+    width: 1000px;
 }
 
 .cardWrapper {
     position: relative;
-    width: 440px;
-    margin: 30px;
+    //width: 440px;
+    overflow: hidden;
     border: 3px solid white;
     border-radius: 10px;
     padding: 10px;
