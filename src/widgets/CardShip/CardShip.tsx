@@ -5,6 +5,7 @@ import {GET_VEHICLES} from "shared/api/GET_VEHICLES";
 import {useDataContext} from "features/DataContext";
 import cls from "./CardShip.module.scss"
 import {Vehicle} from "entity/Vehicle";
+import {useWindowWidth} from "../../shared/hooks/useWindowWidth/useWindowWidth";
 
 interface CardShipProps {
     className?: string
@@ -13,28 +14,26 @@ interface CardShipProps {
 
 
 export const CardShip = memo((props: CardShipProps) => {
+    const widthWindow = useWindowWidth()
     const rowShips = 330
     const margin = 30
     const widthCard = 440
+    const capacityWindow = Math.floor(widthWindow / (widthCard + (margin * 2)))
+    const visibleShips = Math.floor(window.innerHeight / rowShips) + 7
+
 
     const {loading, error, data} = useQuery(GET_VEHICLES);
     const {dataSort, setDataSort} = useDataContext()
     const [startSlice, setStartSlice] = useState(0)
     const [heightTransparentDiv, setHeightTransparentDiv] = useState(0)
     const rootRef = useRef() as MutableRefObject<HTMLDivElement>
-    const [capacityWindow, setCapacityWindow] = useState(Math.floor(window.innerWidth / (widthCard + (margin * 2))))
-    const [visibleShips, setVisibleShips] = useState(Math.floor(window.innerHeight / rowShips) + 7)
-
-
-    useEffect(() => {
-        setCapacityWindow(Math.floor(window.innerWidth / (widthCard + (margin * 2))))
-        setVisibleShips(Math.floor(window.innerHeight / rowShips) + 7)
-    }, [window.innerWidth,window.innerHeight]);
-
 
 
     const getBottomHeight = () => {
-        return (rowShips + margin) * (dataSort && dataSort.length - (startSlice + visibleShips))
+        if (dataSort && dataSort.length) {
+            return (rowShips + margin) * (dataSort.length - (startSlice + visibleShips))
+
+        }
     }
     const getTopHeight = () => {
         return (rowShips + margin) * startSlice
@@ -54,9 +53,6 @@ export const CardShip = memo((props: CardShipProps) => {
 
         return result;
     }
-
-
-
 
 
     useEffect(() => {
@@ -97,8 +93,10 @@ export const CardShip = memo((props: CardShipProps) => {
     return (
         <div
             className={classNames("", {}, [className])}
-            style={{height: (rowShips + margin) * visibleShips, overflow: 'auto', justifyContent: "center",
-    display: "flex"}}
+            style={{
+                height: (rowShips + margin) * visibleShips, overflow: 'auto', justifyContent: "center",
+                display: "flex"
+            }}
             ref={rootRef}
             {...otherProps}
         >
@@ -107,13 +105,13 @@ export const CardShip = memo((props: CardShipProps) => {
                     style={{height: getTopHeight(), marginTop: margin}}/>
                 {Object.entries(splitArrayIntoRows(dataSort, capacityWindow)).slice(startSlice, startSlice + visibleShips).map((row: any, index: number) => (
                         <div key={startSlice + index}
-                             style={{display: "flex",height: rowShips, marginTop: margin}}
+                             style={{display: "flex", height: rowShips, marginTop: margin}}
                         >
-                            {row[1].map((vehicle: Vehicle, index:number) => (
+                            {row[1].map((vehicle: Vehicle, index: number) => (
                                 <div className={cls.cardWrapper}
-                                     key={index+""}
+                                     key={index + ""}
                                      style={{width: widthCard, marginRight: margin, marginLeft: margin}}
-                                     >
+                                >
                                     <div className={cls.title}>{vehicle.title}</div>
                                     <img className={cls.flag} src={`https:${vehicle.nation.icons.large}`}/>
                                     <img className={cls.ship} src={`https:${vehicle.icons.medium}`}/>

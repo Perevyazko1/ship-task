@@ -26,9 +26,9 @@ const MainPage = memo((props: MainPageProps) => {
     const [uniqLevel, setUniqLevel] = useState<any>()
     const [nation, setNation] = useState<any>()
     const [vehiclesClass, setVehiclesClass] = useState<any>()
-    const [activeLevelFilter, setActiveLevelFilter] = useState("")
-    const [activeNationFilter, setActiveNationFilter] = useState("")
-    const [activeClassFilter, setActiveClassFilter] = useState("")
+    const [activeLevelFilter, setActiveLevelFilter] = useState("Выберите уровень")
+    const [activeNationFilter, setActiveNationFilter] = useState("Выберите нацию")
+    const [activeClassFilter, setActiveClassFilter] = useState("Выберите класс")
     const {loading, error, data} = useQuery(GET_VEHICLES);
     const {dataSort, setDataSort} = useDataContext()
     useEffect(() => {
@@ -57,15 +57,15 @@ const MainPage = memo((props: MainPageProps) => {
             let sortData = data.vehicles
 
 
-            if (activeLevelFilter !== "") {
+            if (activeLevelFilter !== "Выберите уровень") {
                 const sort = sortData && sortData.filter((item: Vehicle) => item.level === parseInt(activeLevelFilter))
                 sortData = sort
             }
-            if (activeClassFilter !== "") {
+            if (activeClassFilter !== "Выберите класс") {
                 const sort = sortData && sortData.filter((item: Vehicle) => item.type.name === activeClassFilter)
                 sortData = sort
             }
-            if (activeNationFilter !== "") {
+            if (activeNationFilter !== "Выберите нацию") {
                 const sort = sortData && sortData.filter((item: Vehicle) => item.nation.name === activeNationFilter)
                 sortData = sort
             }
