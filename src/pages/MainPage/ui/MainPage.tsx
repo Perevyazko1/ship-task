@@ -43,7 +43,8 @@ const MainPage = memo((props: MainPageProps) => {
         setNation([...new Set(nations)])
 
         const levels = data && data.vehicles.map((vehicle: Vehicle) => vehicle.level)
-        setUniqLevel([...new Set(levels)])
+        const sortedLevels = levels && levels.sort((a: number, b: number) => a - b);
+        setUniqLevel([...new Set(sortedLevels)])
 
         const vehiclesClasses = data && data.vehicles.map((vehicle: Vehicle) => vehicle.type.name)
         setVehiclesClass([...new Set(vehiclesClasses)])

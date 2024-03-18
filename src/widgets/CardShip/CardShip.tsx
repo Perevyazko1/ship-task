@@ -5,7 +5,7 @@ import {GET_VEHICLES} from "shared/api/GET_VEHICLES";
 import {useDataContext} from "features/DataContext";
 import cls from "./CardShip.module.scss"
 import {Vehicle} from "entity/Vehicle";
-import {useWindowWidth} from "../../shared/hooks/useWindowWidth/useWindowWidth";
+import {useWindowWidth} from "shared/hooks/useWindowWidth/useWindowWidth";
 
 interface CardShipProps {
     className?: string
@@ -19,7 +19,7 @@ export const CardShip = memo((props: CardShipProps) => {
     const margin = 30
     const widthCard = 440
     const capacityWindow = Math.floor(widthWindow / (widthCard + (margin * 2)))
-    const visibleShips = Math.floor(window.innerHeight / rowShips) + 7
+    const visibleRowShips = Math.floor(window.innerHeight / (rowShips + margin) +1 )
 
 
     const {loading, error, data} = useQuery(GET_VEHICLES);
@@ -31,7 +31,13 @@ export const CardShip = memo((props: CardShipProps) => {
 
     const getBottomHeight = () => {
         if (dataSort && dataSort.length) {
-            return (rowShips + margin) * (dataSort.length - (startSlice + visibleShips))
+            let result = (rowShips + margin) * (Object.entries(splitArrayIntoRows(dataSort, capacityWindow)).length  - (startSlice + visibleRowShips))
+            if(result < 0){
+                return 0
+            }else {
+                return result
+            }
+
 
         }
     }
@@ -50,7 +56,6 @@ export const CardShip = memo((props: CardShipProps) => {
             }
 
         }
-
         return result;
     }
 
@@ -65,16 +70,13 @@ export const CardShip = memo((props: CardShipProps) => {
                 setHeightTransparentDiv(
                     Math.floor(e.target.scrollTop / (rowShips + margin))
                 )
-
-
         }
-
         rootRef.current && rootRef.current.addEventListener('scroll', onScroll);
 
         return () => {
             rootRef.current && rootRef.current.removeEventListener('scroll', onScroll);
         }
-    }, [visibleShips, rowShips]);
+    }, [dataSort && dataSort.length,visibleRowShips, rowShips]);
 
 
     const {
@@ -94,7 +96,7 @@ export const CardShip = memo((props: CardShipProps) => {
         <div
             className={classNames("", {}, [className])}
             style={{
-                height: (rowShips + margin) * visibleShips, overflow: 'auto', justifyContent: "center",
+                height: rowShips * visibleRowShips , overflow: 'auto', justifyContent: "center",
                 display: "flex"
             }}
             ref={rootRef}
@@ -103,7 +105,7 @@ export const CardShip = memo((props: CardShipProps) => {
             <div className={cls.CardShip}>
                 <div
                     style={{height: getTopHeight(), marginTop: margin}}/>
-                {Object.entries(splitArrayIntoRows(dataSort, capacityWindow)).slice(startSlice, startSlice + visibleShips).map((row: any, index: number) => (
+                {Object.entries(splitArrayIntoRows(dataSort, capacityWindow)).slice(startSlice, startSlice + visibleRowShips).map((row: any, index: number) => (
                         <div key={startSlice + index}
                              style={{display: "flex", height: rowShips, marginTop: margin}}
                         >
