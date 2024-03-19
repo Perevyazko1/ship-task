@@ -5,7 +5,7 @@ import {GET_VEHICLES} from "shared/api/GET_VEHICLES";
 import {useDataContext} from "App/providers/ContextProvider/DataContext";
 import cls from "./CardShip.module.scss"
 import {Vehicle} from "entity/Vehicle";
-import {useInfiniteScroll} from "../../shared/hooks/useInfinityScroll/useInfinityScroll";
+import {useInfiniteScroll} from "shared/hooks/useInfinityScroll/useInfinityScroll";
 
 interface CardShipProps {
     className?: string

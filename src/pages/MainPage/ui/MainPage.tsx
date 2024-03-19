@@ -66,7 +66,7 @@ const MainPage = memo((props: MainPageProps) => {
                 const sort = sortData && sortData.filter((item: Vehicle) => item.type.name === activeClassFilter)
                 sortData = sort
             }
-            if (activeNationFilter !== "Выберите нацию") {
+            if (activeNationFilter !== "Выберите Нацию") {
                 const sort = sortData && sortData.filter((item: Vehicle) => item.nation.name === activeNationFilter)
                 sortData = sort
             }
