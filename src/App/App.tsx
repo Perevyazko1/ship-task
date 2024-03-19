@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {MainPage} from "pages/MainPage";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
-import {DataContent} from "features/DataContext";
+import {DataContent} from "App/providers/ContextProvider/DataContext";
 
 
 const client = new ApolloClient({

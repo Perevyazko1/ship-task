@@ -1,13 +1,13 @@
 import {memo, ReactNode, useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {PageWrapper} from "shared/ui/PageWrapper/PageWrapper";
-import {useDataContext} from "features/DataContext";
+import {useDataContext} from "App/providers/ContextProvider/DataContext";
 import {GET_VEHICLES} from "shared/api/GET_VEHICLES";
 import {CardShip} from "widgets/CardShip/CardShip";
 import {FilterShip} from "shared/FilterShip/FilterShip";
 import cls from "./MainPage.module.scss"
 import {Vehicle} from "entity/Vehicle";
-import {Loader} from "../../../shared/ui/Loader/Loader";
+import {Loader} from "shared/ui/Loader/Loader";
 
 interface MainPageProps {
     className?: string

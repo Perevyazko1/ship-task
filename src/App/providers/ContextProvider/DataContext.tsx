@@ -1,5 +1,5 @@
 import {createContext, useContext} from "react"
-import {Vehicle} from "../entity/Vehicle";
+import {Vehicle} from "../../../entity/Vehicle";
 interface Datasort {
     vehicles: Vehicle[]
 }
